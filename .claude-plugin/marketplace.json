@@ -1,0 +1,18 @@
+{
+    "name": "GoldenZetsu's-Marketplace",
+    "owner":{
+        "name": "Usman",
+        "email": "usmanfrasu@gmail.com"
+    },
+    "plugins":[
+        {
+            "name": "Claude-Phrase-Catcher",
+            "source": "./plugins/Claude-Phrase-Catcher",
+            "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation.",
+            "version": "1.0.0",
+            "author":{
+                "name": "Usman"
+            }
+        }
+    ]
+}
