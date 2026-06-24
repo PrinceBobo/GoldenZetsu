@@ -1,5 +1,4 @@
 {
     "name": "Claude-Phrase-Catcher",
-    "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation.",
-    "Version": "1.0.0"
+    "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation."
 }
