@@ -1,4 +1,8 @@
 {
-    "name": "Claude-Phrase-Catcher",
-    "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation."
+    "name": "claude-phrase-catcher",
+    "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation.",
+    "author":{
+                "name": "Usman",
+                "email": "usmanfrasu@gmail.com"
+            }
 }
