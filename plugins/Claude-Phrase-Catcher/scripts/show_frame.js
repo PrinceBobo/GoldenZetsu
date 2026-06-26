@@ -7,7 +7,8 @@ const LOGS_DIR = path.join(BASE_DIR, "scripts","Logs");
 const STATE_FILE = path.join(BASE_DIR, "buffer.json");
 const TRIGGER_FILE = path.join(BASE_DIR, "trigger.txt");
 
-
+// ensure Logs dir always exists
+fs.mkdirSync(LOGS_DIR, { recursive: true });
 
 let buffer = {};
 
