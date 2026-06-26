@@ -1,6 +1,0 @@
-{
-  "trigger": "CLEAR_PICTURE",
-  "message_id": "24fccfc7-cef2-4d13-b2e6-91ddd65085db",
-  "text": "full picture",
-  "time": "2026-06-24T13:18:18.523Z"
-}
