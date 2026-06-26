@@ -22,13 +22,36 @@ function normalize(text) {
     return (text || "").toLowerCase();
 }
 
+// Define all your phrase groups here
+const PHRASE_GROUPS = [
+    {
+        name: "ClearPicture",
+        phrases: ["clear picture", "full picture", "complete picture"]
+    },
+    {
+        name: "SmokingGun",
+        phrases: ["smoking gun"]
+    },
+    {
+        name: "Caveat",
+        phrases: ["caveat"]
+    },
+    {
+        name: "Nuance",
+        phrases: ["it's nuanced", "it's more nuanced", "nuance here"]
+    }
+    // add as many groups as you want
+];
+
 function checkMatch(text) {
-    return (
-        text.includes("clear picture") ||
-        text.includes("full picture") ||
-        text.includes("complete picture")
-    );
+    for (const group of PHRASE_GROUPS) {
+        if (group.phrases.some(phrase => text.includes(phrase))) {
+            return group.name; // returns the group name, or null if no match
+        }
+    }
+    return null;
 }
+
 
 // stdin read
 let input = "";
@@ -60,15 +83,23 @@ process.stdin.on("end", () => {
         // -------------------------------
         // ONLY FIRE BLOCK (THIS IS WHERE AUDIO + IMAGE GO)
         // -------------------------------
-        if (!buffer[msgId].fired && checkMatch(fullText)) {
+        const matchedGroup = checkMatch(fullText);
 
+        if (!buffer[msgId].fired && matchedGroup) {
             buffer[msgId].fired = true;
+
+            // dynamically pick the media folder based on matched group
+            const mediaDir = path.join(BASE_DIR, "hooks", "Resources", matchedGroup);
+            
+            // rest of your image/sound logic stays exactly the same
+            // just replace imagesDir with mediaDir
+
 
             // 1. write trigger file (always first)
             fs.writeFileSync(
                 TRIGGER_FILE,
                 JSON.stringify({
-                    trigger: "CLEAR_PICTURE",
+                    trigger: matchedGroup,
                     message_id: msgId,
                     text: fullText,
                     time: new Date().toISOString()
@@ -78,30 +109,29 @@ process.stdin.on("end", () => {
             // -------------------------------
             // IMAGE + SOUND LOGIC (SAFE)
             // -------------------------------
-            const imagesDir = path.join(BASE_DIR, "hooks","Resources","ClearPicture");
 
             let imagePath = "";
             let soundPath = "";
 
             try {
-                const images = fs.readdirSync(imagesDir)
+                const images = fs.readdirSync(mediaDir)
                     .filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f));
 
                 if (images.length > 0) {
                     const img = images[Math.floor(Math.random() * images.length)];
-                    imagePath = path.join(imagesDir, img).replace(/\\/g, '\\');
+                    imagePath = path.join(mediaDir, img).replace(/\\/g, '\\');
                 }
             } catch (e) {
                 fs.writeFileSync(path.join(LOGS_DIR, "image_error.txt"), String(e));
             }
 
             try {
-                const sounds = fs.readdirSync(imagesDir)
+                const sounds = fs.readdirSync(mediaDir)
                     .filter(f => /\.wav$/i.test(f));
 
                 if (sounds.length > 0) {
                     const s = sounds[Math.floor(Math.random() * sounds.length)];
-                    soundPath = path.join(imagesDir, s).replace(/\\/g, '\\');
+                    soundPath = path.join(mediaDir, s).replace(/\\/g, '\\');
                 }
             } catch (e) {
                 fs.writeFileSync(path.join(LOGS_DIR, "sound_error.txt"), String(e));
@@ -110,10 +140,10 @@ process.stdin.on("end", () => {
             fs.writeFileSync(
                 path.join(LOGS_DIR, "debug_render.json"),
                 JSON.stringify({
-                    imagesDir,
+                    mediaDir,
                     imagePath,
                     soundPath,
-                    imagesExist: fs.existsSync(imagesDir)
+                    imagesExist: fs.existsSync(mediaDir)
                 }, null, 2)
             );
 
@@ -179,7 +209,7 @@ $timer.Start();
 `;
 
 
-            const encoded = Buffer.from(psScript, 'utf16le').toString('base64');
+            // const encoded = Buffer.from(psScript, 'utf16le').toString('base64');
 
             const psFile = path.join(BASE_DIR, "scripts","render.ps1");
 
