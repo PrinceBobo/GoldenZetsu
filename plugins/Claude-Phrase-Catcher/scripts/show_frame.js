@@ -2,10 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
 
-const BASE_DIR = path.resolve(__dirname, "..");
-const LOGS_DIR = path.join(__dirname, "Logs");
+const BASE_DIR = process.env.CLAUDE_PLUGIN_ROOT || path.resolve(__dirname, "..");
+const LOGS_DIR = path.join(BASE_DIR, "scripts","Logs");
 const STATE_FILE = path.join(BASE_DIR, "buffer.json");
 const TRIGGER_FILE = path.join(BASE_DIR, "trigger.txt");
+
+
 
 let buffer = {};
 
@@ -76,7 +78,7 @@ process.stdin.on("end", () => {
             // -------------------------------
             // IMAGE + SOUND LOGIC (SAFE)
             // -------------------------------
-            const imagesDir = path.join(BASE_DIR, "hooks\\Resources\\ClearPicture");
+            const imagesDir = path.join(BASE_DIR, "hooks","Resources","ClearPicture");
 
             let imagePath = "";
             let soundPath = "";
@@ -179,7 +181,7 @@ $timer.Start();
 
             const encoded = Buffer.from(psScript, 'utf16le').toString('base64');
 
-            const psFile = path.join(BASE_DIR, "scripts\\render.ps1");
+            const psFile = path.join(BASE_DIR, "scripts","render.ps1");
 
             fs.writeFileSync(psFile, psScript);
 
