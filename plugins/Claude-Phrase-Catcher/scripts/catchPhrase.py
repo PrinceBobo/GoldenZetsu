@@ -6,10 +6,6 @@ import subprocess
 import platform
 import threading
 from pathlib import Path
-import subprocess
-import sys
-
-
 
 # -----------------------------------------------
 # BASE PATHS

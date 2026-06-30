@@ -1,2 +1,0 @@
-Missing dependency: No module named 'PIL'
-Run: pip install pillow

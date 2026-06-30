@@ -1,6 +1,0 @@
-{
-  "trigger": "ClearPicture",
-  "message_id": "0d4fb54f-e2bc-4a11-9c65-c24b419a3165",
-  "text": "clear picture",
-  "time": "2026-06-30T11:22:37.903748"
-}
