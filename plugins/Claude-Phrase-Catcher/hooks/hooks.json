@@ -1,12 +1,23 @@
 {
     "hooks": {
+      "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/ensure_python.sh\""
+          }
+        ]
+      }
+    ],
     "MessageDisplay": [
       {
         "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/show_frame.js\""
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/catchPhrase.py\""
           }
         ]
       }
