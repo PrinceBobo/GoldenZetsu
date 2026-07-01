@@ -1,7 +1,7 @@
 {
     "name": "claude-phrase-catcher",
     "description": "Catches Claude's commonly used phrases and shows an image and plays audio when they come in the conversation.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
         "name": "Usman",
         "email": "usmanfrasu@gmail.com"
