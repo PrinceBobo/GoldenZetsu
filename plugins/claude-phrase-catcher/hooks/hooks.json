@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/catchPhrase.py\""
+            "command": "bash -c \"$(cat ${CLAUDE_PLUGIN_ROOT}/scripts/.python_bin) ${CLAUDE_PLUGIN_ROOT}/scripts/catchPhrase.py\""
           }
         ]
       }
